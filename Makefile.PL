@@ -1,0 +1,18 @@
+use strict;
+use inc::Module::Install;
+name 'POE-Component-IRC-Plugin-Role';
+author 'Chris Williams <chris@bingosnet.co.uk>';
+version_from 'lib/POE/Component/IRC/Plugin/Role.pm';
+abstract_from 'lib/POE/Component/IRC/Plugin/Role.pm';
+readme_from 'lib/POE/Component/IRC/Plugin/Role.pm';
+license 'perl';
+auto_license holder => 'Chris Williams';
+perl_version '5.006';
+build_requires 'Test::More' => 0.47;
+requires 'Moose' => 0.87;
+requires 'POE' => 1.004;
+requires 'POE::Component::IRC' => 6.08;
+requires 'POE::Component::IRC::Plugin' => 0.10;
+auto_provides;
+githubmeta;
+WriteAll;
