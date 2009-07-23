@@ -36,12 +36,13 @@ ATTRIBUTES
 
     "S_events"
         An arrayref of "SERVER" events to register for when "PCI_Register"
-        is called. The default is "all".
+        is called. The default is to register events for the "S_*" prefixed
+        methods in your module.
 
     "U_events"
         An arrayref of "USER" events to register for when "PCI_register" is
-        called. The default is an empty arrayref, meaning no events of this
-        type will be registered.
+        called. The default is to register events for the "U_*" prefixed
+        methods in your module.
 
 METHODS
     "PCI_register"
@@ -55,6 +56,10 @@ METHODS
 
 AUTHOR
     Chris "BinGOs" Williams <chris@bingosnet.co.uk>
+
+    Chris Prather
+
+    Shawn M Moore
 
 LICENSE
     Copyright © Chris Williams

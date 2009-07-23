@@ -1,6 +1,6 @@
 package POE::Component::IRC::Plugin::Role;
 
-our $VERSION = '0.02';
+our $VERSION = '0.04';
 
 use Moose::Role;
 
@@ -15,23 +15,35 @@ has 'irc' => (
 has 'S_events' => (
   is => 'ro',
   isa => 'ArrayRef',
-  default => sub { [qw(all)] },
+  auto_deref => 1,
+  lazy_build => 1,
+  builder => '_default_sevents',
 );
 
 has 'U_events' => (
   is => 'ro',
   isa => 'ArrayRef',
-  default => sub {[]},
+  auto_deref => 1,
+  lazy_build => 1,
+  builder => '_default_uevents',
 );
 
+sub _default_sevents {
+  [ grep { s/S_(\w+)/$1/ } shift->meta->get_all_method_names ];
+}
+ 
+sub _default_uevents {
+  [ grep { s/S_(\w+)/$1/ } shift->meta->get_all_method_names ];
+}
+ 
 sub PCI_register {
   my ($self, $irc) = splice @_, 0, 2;
   $self->set_irc( $irc );
   if ( $self->S_events and scalar @{ $self->S_events } > 0 ) {
-    $irc->plugin_register( $self, 'SERVER', @{ $self->S_events } );
+    $irc->plugin_register( $self, 'SERVER', $self->S_events );
   }
   if ( $self->U_events and scalar @{ $self->U_events } > 0 ) {
-    $irc->plugin_register( $self, 'USER', @{ $self->U_events } );
+    $irc->plugin_register( $self, 'USER', $self->U_events );
   }
   return 1;
 }
@@ -90,12 +102,13 @@ methods.
 
 =item C<S_events>
 
-An arrayref of C<SERVER> events to register for when C<PCI_Register> is called. The default is C<all>. 
+An arrayref of C<SERVER> events to register for when C<PCI_Register> is called. The default is to register events for
+the C<S_*> prefixed methods in your module. 
 
 =item C<U_events>
 
-An arrayref of C<USER> events to register for when C<PCI_register> is called. The default is an empty arrayref, meaning
-no events of this type will be registered.
+An arrayref of C<USER> events to register for when C<PCI_register> is called. The default is to register events for
+the C<U_*> prefixed methods in your module.
 
 =back
 
@@ -117,6 +130,10 @@ This is called everytime a plugin object is removed from L<POE::Component::IRC>.
 =head1 AUTHOR
 
 Chris C<BinGOs> Williams <chris@bingosnet.co.uk>
+
+Chris Prather
+
+Shawn M Moore
 
 =head1 LICENSE
 

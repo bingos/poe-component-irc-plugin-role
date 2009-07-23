@@ -6,7 +6,7 @@ version_from 'lib/POE/Component/IRC/Plugin/Role.pm';
 abstract_from 'lib/POE/Component/IRC/Plugin/Role.pm';
 readme_from 'lib/POE/Component/IRC/Plugin/Role.pm';
 license 'perl';
-auto_license holder => 'Chris Williams';
+auto_license holder => 'Chris Williams, Chris Prather and Shawn M. Moore';
 perl_version '5.006';
 build_requires 'Test::More' => 0.47;
 requires 'Moose' => 0.87;
