@@ -1,6 +1,10 @@
 Changelog for POE-Component-IRC-Plugin-Role:
 ============================================
 
+
+0.06  Tue Aug 25 16:33:02 BST 2009
+  - Add 'use strict' to satisify CPANTS kwalitee
+
 0.04  Thu Jul 23 15:40:20 BST 2009
   - Automagically register for S/U prefixed methods by default.
     Thanks to Chris Prather for the tip.

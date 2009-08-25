@@ -1,7 +1,8 @@
 package POE::Component::IRC::Plugin::Role;
 
-our $VERSION = '0.04';
+our $VERSION = '0.06';
 
+use strict;
 use Moose::Role;
 
 has 'irc' => (
