@@ -1,6 +1,6 @@
 package POE::Component::IRC::Plugin::Role;
 
-our $VERSION = '0.06';
+#ABSTRACT: A Moose role for POE::Component::IRC plugins
 
 use strict;
 use Moose::Role;
@@ -32,11 +32,11 @@ has 'U_events' => (
 sub _default_sevents {
   [ grep { s/S_(\w+)/$1/ } shift->meta->get_all_method_names ];
 }
- 
+
 sub _default_uevents {
   [ grep { s/S_(\w+)/$1/ } shift->meta->get_all_method_names ];
 }
- 
+
 sub PCI_register {
   my ($self, $irc) = splice @_, 0, 2;
   $self->set_irc( $irc );
@@ -59,11 +59,11 @@ no Moose::Role;
 
 'Moosified Plugins ahoy!'
 
-__END__
+=pod
 
-=head1 NAME
+=for Pod::Coverage PCI_register PCI_ungreister
 
-POE::Component::IRC::Plugin::Role - A Moose role for POE::Component::IRC plugins
+=cut
 
 =head1 SYNOPSIS
 
@@ -97,14 +97,14 @@ Simply consume the role in your L<Moose> based plugins.
 
 =item C<irc>
 
-Should be a L<POE::Component::IRC> object. It can not be set in the constructor, but has C<set_irc> and C<clear_irc> 
+Should be a L<POE::Component::IRC> object. It can not be set in the constructor, but has C<set_irc> and C<clear_irc>
 writer and clearer methods, respectively. It is usually set for you by C<PCI_register> and cleared by C<PCI_unregister>
 methods.
 
 =item C<S_events>
 
 An arrayref of C<SERVER> events to register for when C<PCI_Register> is called. The default is to register events for
-the C<S_*> prefixed methods in your module. 
+the C<S_*> prefixed methods in your module.
 
 =item C<U_events>
 
@@ -119,7 +119,7 @@ the C<U_*> prefixed methods in your module.
 
 =item C<PCI_register>
 
-This is called everytime a plugin object is added to L<POE::Component::IRC>. It will set the C<irc> attribute 
+This is called everytime a plugin object is added to L<POE::Component::IRC>. It will set the C<irc> attribute
 and register for the requested C<S_events> and C<U_events>.
 
 =item C<PCI_unregister>
@@ -127,20 +127,6 @@ and register for the requested C<S_events> and C<U_events>.
 This is called everytime a plugin object is removed from L<POE::Component::IRC>. It will clear the C<irc> attribute.
 
 =back
-
-=head1 AUTHOR
-
-Chris C<BinGOs> Williams <chris@bingosnet.co.uk>
-
-Chris Prather
-
-Shawn M Moore
-
-=head1 LICENSE
-
-Copyright E<copy> Chris Williams
-
-This module may be used, modified, and distributed under the same terms as Perl itself. Please see the license that came with your Perl distribution for details.
 
 =head1 SEE ALSO
 
